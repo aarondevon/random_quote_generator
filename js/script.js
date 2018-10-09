@@ -47,7 +47,7 @@ function getRandomQuote() {
 }
 
 // Unique quote
-function duplicateQuotePreventor(quote) {
+function preventDuplicateQuote(quote) {
 	let randomQuote;
 	do {
 		randomQuote = getRandomQuote();
@@ -55,15 +55,26 @@ function duplicateQuotePreventor(quote) {
 	console.log(randomQuote);
 	return randomQuote;
 }
+function stringBuilder(randomQuote) {
+	let output = `<p class="quote"> ${randomQuote.quote} </p>`; 
+	output += `<p class="source"> ${randomQuote.source}`;	
 
+	if (randomQuote.citation !== undefined) {
+		output += `<span class="citation"> ${randomQuote.citation} </span>`;
+	}
+	
+	if (randomQuote.year !== undefined) {
+		output += `<span class="year"> ${randomQuote.year} </span> </p>`;
+	}
+
+	output += '</p>';
+
+	return output;
+}
 // Create the print the quote 
 function printQuote() {
-	randomQuote = duplicateQuotePreventor(randomQuote);
-	let output = `<p class="quote"> ${randomQuote.quote} </p>`; 
-	output += `<p class="source"> ${randomQuote.source}`;
-	output += `<span class="citation"> ${randomQuote.citation} </span>`;
-  output += `<span class="year"> ${randomQuote.year} </span> </p>`;
-	document.getElementById('quote-box').innerHTML = output;
+	randomQuote = preventDuplicateQuote(randomQuote);
+	document.getElementById('quote-box').innerHTML = stringBuilder(randomQuote);
 }
 
 randomQuote = getRandomQuote();
