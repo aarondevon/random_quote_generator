@@ -125,3 +125,6 @@ randomColor = getRandomColor();
 // This event listener will respond to "Show another quote" button clicks
 // when user clicks anywhere on the button, the "printQuote" function is called
 document.getElementById('loadQuote').addEventListener("click", printQuote, false);
+
+// calls the printQuote function every 20 seconds if the user doesn't click for the next quote
+setInterval(function(){ printQuote(); }, 12000);
