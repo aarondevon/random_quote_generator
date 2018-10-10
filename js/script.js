@@ -58,10 +58,10 @@ function getRandomQuote() {
 }
 
 // Ensure a quote doesn't display back to back
-function preventDuplicateQuote(quote) {
-	let randomQuote;
+function preventDuplicateQuote(randomQuote) {
+	let quote;
 	do {
-		randomQuote = getRandomQuote();
+		quote = getRandomQuote();
 	} while(quote.quote === randomQuote.quote);
 	console.log(randomQuote);
 	return randomQuote;
@@ -92,12 +92,12 @@ function getRandomColor() {
 }
 
 // Prevents duplicate backgrounds from displaying back to back
-function preventDuplicateColor(color){
-	let randomColor;
+function preventDuplicateColor(randomColor){
+	let color;
 	do {
-		randomColor = getRandomColor();
-	} while (color === randomColor);
-	return randomColor;
+		color = getRandomColor();
+	} while (randomColor === color);
+	return color;
 }
 
 // Changes the background color
@@ -119,7 +119,9 @@ function printQuote() {
 	document.getElementById("quote-box").innerHTML = stringBuilder(randomQuote);
 }
 
+// setting global quote variable so quotes don't show back to back
 randomQuote = getRandomQuote();
+// Setting global color variable so colors don't show back to back
 randomColor = getRandomColor();
 
 // This event listener will respond to "Show another quote" button clicks
@@ -127,4 +129,4 @@ randomColor = getRandomColor();
 document.getElementById('loadQuote').addEventListener("click", printQuote, false);
 
 // calls the printQuote function every 20 seconds if the user doesn't click for the next quote
-setInterval(function(){ printQuote(); }, 12000);
+setInterval(function(){ printQuote(); }, 20000);
