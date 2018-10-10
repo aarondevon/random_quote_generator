@@ -1,6 +1,9 @@
 // Random Quote Generator
+
+// globial variables used to prevent quotes and colors from displaying back to back 
 let randomQuote;
 let randomColor;
+
 let colors = ["#105187","#2C8693", "#F19722", "#C33325","#36b55c"];
 // Create the array of quote objects and name it quotes
 let quotes = [
@@ -9,45 +12,47 @@ let quotes = [
 		source: "Rhett and Link",
 		citation: "25 Unforgettable Movie Quotes",
 		year: "2012",
-		tag: "humor"
+		tag: "Humor"
 	},
 	{
 		quote: "We must love one another and see in one another the beauty of the soul.",
 		source: "Carole F. McConkie",
 		citation: "Ensign",
 		year: "2015",
-		tag: "family"
+		tag: "Inspirational"
 	},
 	{
 		quote: "In family relationships love is really spelled t-i-m-e, time.",
 		source: "Dieter F. Uchtdorf",
 		citation: "Ensign",
 		year: "2010",
-		tag: "family"
+		tag: "Family"
 	},
 	{
 		quote: "I like your boots.",
 		source: "Rhett and Link",
 		citation: "How to Talk to Girls",
 		year: "2012",
-		tag: "humor"
+		tag: "Humor"
 	},
 	{
 		quote: "Every great developer you know got there by solving problems they were unqualified to solve until they actually did it.",
 		source: "Patrick McKenzie",
 		citation: "Twitter",
 		year: "2016",
-		tag: "tech"
+		tag: "Inspirational"
 	},
 	{
 		quote: "Only I can change my life. Nobody can do it for me.",
-		source: "Carol Burnett"
+		source: "Carol Burnett",
+		tag: "Inspirational"
 	},
 	{
 		quote: "You keep using that word. I do not think it means what you think it means.",
 		source: "Inigo Montoya",
 		citation: "The Princess Bride",
-		year: 1987
+		year: 1987,
+		tag: "Humor"
 	}
 ];
 
@@ -67,7 +72,7 @@ function preventDuplicateQuote(randomQuote, array) {
 	do {
 		quote = getRandomQuote(array);
 	} while(randomQuote.quote === quote.quote);
-	
+
 	return quote;
 }
 
@@ -81,7 +86,11 @@ function stringBuilder(randomQuote) {
 	}
 	
 	if (randomQuote.year !== undefined) {
-		output += `<span class="year"> ${randomQuote.year} </span> </p>`;
+		output += `<span class="year"> ${randomQuote.year} </span>`;
+	}
+
+	if (randomQuote.tag !== undefined) {
+		output += `<br><span class="tag"> Category: ${randomQuote.tag} </span> `
 	}
 
 	output += '</p>';
@@ -116,13 +125,9 @@ function changeBackgroundColor(colorArray) {
 	}, false);
 }
 
-// Create the print the quote 
+// prints the quote and calls a function to change the background color
 function printQuote(quoteArray, colorArray) {
-	//  setting global quote variable so quotes don't show back to back
-  //randomQuote = getRandomQuote(quoteArray);
-	//  Setting global color variable so colors don't show back to back
-	//randomColor = getRandomColor(colors);
-		changeBackgroundColor(colorArray);
+	changeBackgroundColor(colorArray);
 	randomQuote = preventDuplicateQuote(randomQuote, quoteArray);
 	document.getElementById("quote-box").innerHTML = stringBuilder(randomQuote);
 }
