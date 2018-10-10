@@ -1,9 +1,11 @@
 // Random Quote Generator
 let randomQuote;
+let randomColor;
+let colors = ["#105187","#2C8693", "#F19722", "#C33325","#36b55c"];
 // Create the array of quote objects and name it quotes
 let quotes = [
 	{
-		quote: "Kiss me, Barbra.",
+		quote: "Kiss me, Barbara.",
 		source: "Rhett and Link",
 		citation: "25 Unforgettable Movie Quotes",
 		year: "2012",
@@ -24,7 +26,7 @@ let quotes = [
 		tag: "family"
 	},
 	{
-		quote: "I like your boots",
+		quote: "I like your boots.",
 		source: "Rhett and Link",
 		citation: "How to Talk to Girls",
 		year: "2012",
@@ -36,17 +38,26 @@ let quotes = [
 		citation: "Twitter",
 		year: "2016",
 		tag: "tech"
+	},
+	{
+		quote: "Only I can change my life. Nobody can do it for me.",
+		source: "Carol Burnett"
+	},
+	{
+		quote: "You keep using that word. I do not think it means what you think it means.",
+		source: "Inigo Montoya",
+		citation: "The Princess Bride",
+		year: 1987
 	}
 ];
 
-
-// Create the getRandomQuote function and name it getRandomQuote
+// get a random quote
 function getRandomQuote() {
 	let random = Math.floor(Math.random()* quotes.length);
 	return quotes[random]; 
 }
 
-// Unique quote
+// Ensure a quote doesn't display back to back
 function preventDuplicateQuote(quote) {
 	let randomQuote;
 	do {
@@ -55,6 +66,8 @@ function preventDuplicateQuote(quote) {
 	console.log(randomQuote);
 	return randomQuote;
 }
+
+// Build the string that will be displayed
 function stringBuilder(randomQuote) {
 	let output = `<p class="quote"> ${randomQuote.quote} </p>`; 
 	output += `<p class="source"> ${randomQuote.source}`;	
@@ -71,13 +84,43 @@ function stringBuilder(randomQuote) {
 
 	return output;
 }
+
+// get a random color
+function getRandomColor() {
+	let randomIndex = Math.floor(Math.random() * colors.length);
+	return colors[randomIndex];
+}
+
+// Prevents duplicate backgrounds from displaying back to back
+function preventDuplicateColor(color){
+	let randomColor;
+	do {
+		randomColor = getRandomColor();
+	} while (color === randomColor);
+	return randomColor;
+}
+
+// Changes the background color
+function changeBackgroundColor() {
+	randomColor = preventDuplicateColor(randomColor);
+	document.body.style.backgroundColor = randomColor;
+	loadQuote.addEventListener("mouseover", function(event) {
+		event.target.style.background = "#F19A28";
+	}, false);
+	loadQuote.addEventListener("mouseleave", function(event) {
+		event.target.style.background = "";
+	}, false);
+}
+
 // Create the print the quote 
 function printQuote() {
+	changeBackgroundColor();
 	randomQuote = preventDuplicateQuote(randomQuote);
-	document.getElementById('quote-box').innerHTML = stringBuilder(randomQuote);
+	document.getElementById("quote-box").innerHTML = stringBuilder(randomQuote);
 }
 
 randomQuote = getRandomQuote();
+randomColor = getRandomColor();
 
 // This event listener will respond to "Show another quote" button clicks
 // when user clicks anywhere on the button, the "printQuote" function is called
